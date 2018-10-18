@@ -9,8 +9,6 @@
 #include "base/command_line.h"
 #include "base/mac/bundle_locations.h"
 #include "base/path_service.h"
-#include "brightray/browser/browser_client.h"
-#include "brightray/common/content_client.h"
 #include "content/public/common/content_switches.h"
 #include "electron/buildflags/buildflags.h"
 #include "services/service_manager/embedder/switches.h"
@@ -77,13 +75,7 @@ MainDelegate::MainDelegate() {}
 
 MainDelegate::~MainDelegate() {}
 
-std::unique_ptr<ContentClient> MainDelegate::CreateContentClient() {
-  return std::unique_ptr<ContentClient>(new ContentClient);
-}
-
 bool MainDelegate::BasicStartupComplete(int* exit_code) {
-  content_client_ = CreateContentClient();
-  SetContentClient(content_client_.get());
 #if defined(OS_MACOSX)
   OverrideChildProcessPath();
   OverrideFrameworkBundlePath();
@@ -102,15 +94,6 @@ void MainDelegate::PreSandboxStartup() {
     std::string locale = cmd.GetSwitchValueASCII(switches::kLang);
     LoadResourceBundle(locale);
   }
-}
-
-content::ContentBrowserClient* MainDelegate::CreateContentBrowserClient() {
-  browser_client_ = CreateBrowserClient();
-  return browser_client_.get();
-}
-
-std::unique_ptr<BrowserClient> MainDelegate::CreateBrowserClient() {
-  return std::unique_ptr<BrowserClient>(new BrowserClient);
 }
 
 }  // namespace brightray

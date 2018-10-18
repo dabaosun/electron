@@ -10,6 +10,7 @@
 
 #include "base/macros.h"
 #include "content/public/app/content_main_delegate.h"
+#include "content/public/common/content_client.h"
 
 namespace base {
 class FilePath;
@@ -22,7 +23,6 @@ class ResourceBundle;
 namespace brightray {
 
 class BrowserClient;
-class ContentClient;
 
 void LoadResourceBundle(const std::string& locale);
 void LoadCommonResources();
@@ -33,14 +33,6 @@ class MainDelegate : public content::ContentMainDelegate {
   ~MainDelegate() override;
 
  protected:
-  // Subclasses can override this to provide their own ContentClient
-  // implementation.
-  virtual std::unique_ptr<ContentClient> CreateContentClient();
-
-  // Subclasses can override this to provide their own BrowserClient
-  // implementation.
-  virtual std::unique_ptr<BrowserClient> CreateBrowserClient();
-
 #if defined(OS_MACOSX)
   // Subclasses can override this to custom the paths of child process and
   // framework bundle.
@@ -52,11 +44,6 @@ class MainDelegate : public content::ContentMainDelegate {
   void PreSandboxStartup() override;
 
  private:
-  content::ContentBrowserClient* CreateContentBrowserClient() override;
-
-  std::unique_ptr<ContentClient> content_client_;
-  std::unique_ptr<BrowserClient> browser_client_;
-
   DISALLOW_COPY_AND_ASSIGN(MainDelegate);
 };
 

@@ -175,7 +175,7 @@ int AtomBrowserMainParts::PreCreateThreads() {
   const int result = brightray::BrowserMainParts::PreCreateThreads();
   if (!result) {
     fake_browser_process_->SetApplicationLocale(
-        brightray::BrowserClient::Get()->GetApplicationLocale());
+        AtomBrowserClient::Get()->GetApplicationLocale());
   }
 
   // Force MediaCaptureDevicesDispatcher to be created on UI thread.

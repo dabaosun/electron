@@ -19,8 +19,6 @@ static_library("brightray") {
 
   sources = [
     "browser/brightray_paths.h",
-    "browser/browser_client.cc",
-    "browser/browser_client.h",
     "browser/browser_main_parts.cc",
     "browser/browser_main_parts.h",
     "browser/browser_main_parts_mac.mm",
@@ -30,8 +28,6 @@ static_library("brightray") {
     "common/application_info.h",
     "common/application_info_mac.mm",
     "common/application_info_win.cc",
-    "common/content_client.cc",
-    "common/content_client.h",
     "common/mac/main_application_bundle.h",
     "common/mac/main_application_bundle.mm",
     "common/main_delegate.cc",

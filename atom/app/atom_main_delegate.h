@@ -8,8 +8,8 @@
 #include <memory>
 #include <string>
 
-#include "brightray/common/content_client.h"
 #include "brightray/common/main_delegate.h"
+#include "content/public/common/content_client.h"
 
 namespace atom {
 
@@ -34,8 +34,6 @@ class AtomMainDelegate : public brightray::MainDelegate {
   bool DelaySandboxInitialization(const std::string& process_type) override;
 #endif
 
-  // brightray::MainDelegate:
-  std::unique_ptr<brightray::ContentClient> CreateContentClient() override;
 #if defined(OS_MACOSX)
   void OverrideChildProcessPath() override;
   void OverrideFrameworkBundlePath() override;
@@ -47,6 +45,7 @@ class AtomMainDelegate : public brightray::MainDelegate {
 #endif
 
   std::unique_ptr<content::ContentBrowserClient> browser_client_;
+  std::unique_ptr<content::ContentClient> content_client_;
   std::unique_ptr<content::ContentRendererClient> renderer_client_;
   std::unique_ptr<content::ContentUtilityClient> utility_client_;
 
